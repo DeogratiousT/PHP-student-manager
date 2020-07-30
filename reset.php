@@ -16,6 +16,12 @@
     <form method="post" action="reset.php">
         <?php include('errors.php'); ?>
 
+        <?php if (isset($_SESSION['reset-email'])): ?>
+            <div class="success">
+                <p> Enter new password for: <br><?php echo $_SESSION['reset-email']; ?> </p>
+            </div>
+        <?php endif ?>
+
         <div class="input-group">
             <label>New Password</label>
             <input type="password" name="password1">
@@ -26,7 +32,7 @@
         </div>
 
         <div class="input-group">
-            <button type="submit" name="login" class="btn btn-success">Submit</button>
+            <button type="submit" name="reset" class="btn btn-success">Submit</button>
         </div>
 
     </form>

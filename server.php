@@ -52,8 +52,10 @@
 				header('location: index_redirect.php'); //redirect to other home page					
 			}
 
-			mysqli_close($db);
 		}
+
+		mysqli_close($db);
+
 	}
 
 
@@ -95,6 +97,9 @@
 				array_push($errors, "Incorrect credentials");
 			}
 		}
+
+		mysqli_close($db);
+
 	}
 
 
@@ -106,6 +111,67 @@
 		unset($_SESSION['username']);
 		unset($_SESSION['success']);
 		header('location: login.php');
+	}
+
+	if (isset($_POST['forgot'])) {
+		$email = mysqli_real_escape_string($db, $_POST['email']);
+		
+		if (empty($email)) {
+			array_push($errors, "Email is required");
+		}
+
+		if (count($errors) == 0) {
+			$query = "SELECT email FROM users WHERE email='$email'";
+			$exists = mysqli_query($db,$query);
+			$data = $exists->fetch_assoc();
+
+			if(mysqli_num_rows($exists) == 1)
+			{
+				$_SESSION['reset-email'] = $data['email'];
+
+				header('location: reset.php'); //redirect to other reset page					
+				
+			}else{
+				array_push($errors, "This Email does not exist");
+			}
+		}
+
+		mysqli_close($db);
+
+	}
+
+	if (isset($_POST['reset'])) {
+
+		$email = $_SESSION['reset-email'];
+		$password1 = mysqli_real_escape_string($db, $_POST['password1']);
+		$password2 = mysqli_real_escape_string($db, $_POST['password2']);
+
+		//ensure all fields are filled properly
+		// if (empty($email)) {
+		// 	array_push($errors, "Email is required");
+		// }
+		if (empty($password1)) {
+			array_push($errors, "Password is required");
+		}
+
+		if ($password1 != $password2) {
+			array_push($errors, "The two passwords do not match");
+		}
+
+		//if there are no errors, update user password to the database
+		if (count($errors) == 0) {
+			$sql = "UPDATE users SET password='$password1' WHERE email='$email'";
+
+			if (mysqli_query($db, $sql)) {
+				$_SESSION['reset-message'] = "Login In with your new password";
+
+				header('location: login.php'); //redirect to login page
+			} else {
+				echo "Error updating record: " . mysqli_error($db);
+			}
+		}
+
+		mysqli_close($db);
 	}
 
 

@@ -14,11 +14,21 @@
     </div> 
 
     <form method="post" action="login.php">
+    <?php if (isset($_SESSION['reset-message'])): ?>
+            <div class="success">
+                <h3>
+                    <?php 
+                        echo $_SESSION['reset-message'];
+                        unset($_SESSION['reset-message']);
+                    ?>
+                </h3>
+            </div>
+        <?php endif ?>
         <?php include('errors.php'); ?>
 
         <div class="input-group">
             <label>Email</label>
-            <input type="email" name="email">
+            <input type="email" name="email" value="<?php if (isset($_SESSION['reset-email'])): echo $_SESSION['reset-email']; unset($_SESSION['reset-email']); endif ?>">
         </div>
         
         <div class="input-group">
