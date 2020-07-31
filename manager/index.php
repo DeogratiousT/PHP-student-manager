@@ -1,4 +1,4 @@
-<?php include ('server.php'); ?>
+<?php include ('../server.php'); ?>
  <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="../app.css">
 
 </head>
 <body>
@@ -25,9 +25,8 @@
         <?php if (isset($_SESSION['username'])): ?>
             <p>Welcome <strong><?php echo $_SESSION['username']; ?></strong></p>
             <p>You are a <?php echo $_SESSION['role']; ?></p>
-            <p><a href="login.php?logout='1'" >Logout</a></p>
-        <?php else : header('location: login.php'); endif ?>
-        
+            <p><a href="../index.php?logout='1'" >Logout</a></p>            
+        <?php else : header('location: ../index.php'); endif ?>
     </div>
 
 </body>

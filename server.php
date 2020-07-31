@@ -45,11 +45,14 @@
 			$_SESSION['role'] = $role;
 			// $_SESSION['success'] = "Welcome $username";
 
-			$role1 = "lecturer";
-			if ($role == $role1) {
+			$lec = "lecturer";
+			$man = "manager";
+			if ($role == $lec) {
 				header('location: lecturer/index.php'); //redirect to lecturer home page					
+			}elseif ($role == $man) {
+				header('location: manager/index.php'); //redirect to manager home page					
 			}else{
-				header('location: index_redirect.php'); //redirect to other home page					
+				header('location: student/index.php'); //redirect to student home page					
 			}
 
 		}
@@ -86,11 +89,14 @@
 				$_SESSION['role'] = $data['role'];
 				$_SESSION['success'] = "Welcome ". $data['username'];
 
-				$role1 = "lecturer";
-				if ($data['role'] == $role1) {
+				$lec = "lecturer";
+				$man = "manager";
+				if ($data['role'] == $lec) {
 					header('location: lecturer/index.php'); //redirect to lecturer home page					
+				}elseif ($role == $man) {
+					header('location: manager/index.php'); //redirect to manager home page					
 				}else{
-					header('location: index_redirect.php'); //redirect to other home page					
+					header('location: student/index.php'); //redirect to student home page					
 				}
 
 			} else{
@@ -110,7 +116,7 @@
 		unset($_SESSION['role']);
 		unset($_SESSION['username']);
 		unset($_SESSION['success']);
-		header('location: login.php');
+		header('location: index.php');
 	}
 
 	if (isset($_POST['forgot'])) {
@@ -165,7 +171,7 @@
 			if (mysqli_query($db, $sql)) {
 				$_SESSION['reset-message'] = "Login In with your new password";
 
-				header('location: login.php'); //redirect to login page
+				header('location: index.php'); //redirect to login page
 			} else {
 				echo "Error updating record: " . mysqli_error($db);
 			}

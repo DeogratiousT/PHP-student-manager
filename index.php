@@ -1,3 +1,4 @@
+<?php include ('server.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,22 +7,50 @@
     <title>Document</title>
 
     <link rel="stylesheet" href="app.css">
-
 </head>
 <body>
-    <div class="jumbotron">
-        <h1 class="text-center">Choose category to continue</h1>
+    <div class="header">
+        <h2>Login</h2>
+    </div> 
 
-        <div class="display-inline">
-            <a href="login.php" class="btn btn-outline-primary m-3">Lecturer</a>
-            <a href="#" class="btn btn-outline-primary m-3">Lecturer</a>
+    <form method="post" action="index.php">
+    <?php if (isset($_SESSION['reset-message'])): ?>
+            <div class="success">
+                <h3>
+                    <?php 
+                        echo $_SESSION['reset-message'];
+                        unset($_SESSION['reset-message']);
+                    ?>
+                </h3>
+            </div>
+        <?php endif ?>
+        <?php include('errors.php'); ?>
+
+        <div class="input-group">
+            <label>Email</label>
+            <input type="email" name="email" value="<?php if (isset($_SESSION['reset-email'])): echo $_SESSION['reset-email']; unset($_SESSION['reset-email']); endif ?>">
         </div>
-        <br>
-        <div class="display-inline">
-            <a href="#" class="btn btn-outline-primary m-3">Lecturer</a>
-            <a href="#" class="btn btn-outline-primary m-3">Lecturer</a>
+        
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" name="password">
         </div>
 
-    </div>
+        <div class="input-group">
+            <label>Role</label>
+            <select name="role">
+                <option value="student">Student</option>
+                <option value="lecturer">Lecturer</option>
+                <option value="manager">Manager</option>
+            </select>
+        </div>
+        
+        <div class="input-group">
+            <button type="submit" name="login" class="btn btn-success">Login</button>
+            <span class="pull-right"><a href="forgot.php">Forgot Password?</a></span>
+        </div>
+        <br><hr>
+        <p>Don't have an account yet? <a href="register.php">Sign up</a></p>
+    </form>
 </body>
 </html>
