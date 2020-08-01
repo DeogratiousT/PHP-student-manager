@@ -10,9 +10,11 @@
 
 </head>
 <body>
+    <?php include ('navbar.php'); ?>
+
     <div class="container">
         <?php if (isset($_SESSION['success'])): ?>
-            <div class="success">
+            <div class="success" style="margin-top:40px;">
                 <h3>
                     <?php 
                         echo $_SESSION['success'];
@@ -23,9 +25,11 @@
         <?php endif ?>
         
         <?php if (isset($_SESSION['username'])): ?>
-            <p>Welcome <strong><?php echo $_SESSION['username']; ?></strong></p>
-            <p>You are a <?php echo $_SESSION['role']; ?></p>
-            <p><a href="../index.php?logout='1'" >Logout</a></p>            
+            <div class="jumbotron">
+                <p>Welcome <strong><?php echo $_SESSION['username']; ?></strong></p>
+                <p>You are a <?php echo $_SESSION['role']; ?></p>
+                <p><a href="../index.php?logout='1'" class="btn btn-outline-primary">Logout</a></p>   
+            </div>         
         <?php else : header('location: ../index.php'); endif ?>
     </div>
 
