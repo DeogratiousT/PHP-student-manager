@@ -1,6 +1,10 @@
 <div class="nav">
     <ul>
-        <li class="disabled" style="margin-right: 10px"><a href="index.php">LECTURER PORTAL</a></li>
+        <li class="disabled" style="margin-right: 10px">
+            <a href="index.php">
+                <?php if (isset($_SESSION['role'])): echo strtoupper($_SESSION['role']) ." PORTAL"; endif ?>
+            </a>
+        </li>
         <li><a href="index.php">Home</a></li>
         <li><a href="group_rollcall.php">Group RollCall</a></li>
         <li class="dropdown">
