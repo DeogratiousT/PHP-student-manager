@@ -4,6 +4,7 @@
 	$email = "";
 	$errors = array();
 	$sorted_names = array();
+	$student_attendance = array();
 
 	//connecting to the database
 	$db = mysqli_connect('localhost','root','Password1234','lecturer');
@@ -265,6 +266,29 @@
 
 		}
 	
+	}
+
+	if (isset($_POST['student_sort'])) {
+
+		$date = mysqli_real_escape_string($db, $_POST['date']);
+		$student = mysqli_real_escape_string($db, $_POST['student']);
+
+		// Read record
+		$sql = mysqli_query($db,"SELECT * FROM students WHERE dates='$date'");
+		while($row = mysqli_fetch_assoc($sql)){
+			$names = unserialize($row['names']);
+			$class = $row['class'];	
+			$module = $row['module'];	
+
+			if (in_array($student , $names)) {
+				array_push($student_attendance , array($class , $module));
+
+				$_SESSION['selected_date'] = $date;
+				$_SESSION['selected_student'] = $student;
+			}		
+
+		}
+			
 	}
 
  ?>
