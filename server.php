@@ -3,6 +3,7 @@
 	$username = "";
 	$email = "";
 	$errors = array();
+	$sorted_names = array();
 
 	//connecting to the database
 	$db = mysqli_connect('localhost','root','Password1234','lecturer');
@@ -180,5 +181,90 @@
 		mysqli_close($db);
 	}
 
+	if (isset($_POST['group_rollcall'])) {
+
+		$students_present = array();
+
+		if (isset($_POST['students'])) {
+			foreach ($_POST['students'] as $student) {
+				array_push($students_present , $student);
+			}
+		} 
+
+
+		$names = serialize($students_present);
+		$class = mysqli_real_escape_string($db, $_POST['class']);
+		$module = mysqli_real_escape_string($db, $_POST['module']);
+		$date = date("Y-m-d");
+
+		if (empty($students_present)) {
+			array_push($errors, "No students present");
+		}
+
+		// Check if Class has been recorded
+		$query = "SELECT id FROM students WHERE class='$class' AND module='$module' AND dates='$date'";
+		$exists = mysqli_query($db,$query);
+
+		if(mysqli_num_rows($exists) == 1){
+			array_push($errors, "Session Has already been recorded");
+		}
+
+		if (count($errors) == 0) {
+
+			$sql = "INSERT INTO students(names, class, module, dates) VALUES('$names','$class','$module','$date')";
+
+			if (mysqli_query($db, $sql)) {
+				$_SESSION['success'] = "New record created successfully";
+			} else {
+			echo "Error: " . $sql . "<br>" . $db->error;
+			}	
+			
+			header('location: class_sort.php'); //redirect to lecturer class sort page					
+		
+		}
+			
+		mysqli_close($db);
+
+	}
+
+	if (isset($_POST['class_sort'])) {
+
+		$date = mysqli_real_escape_string($db, $_POST['date']);
+		$class = mysqli_real_escape_string($db, $_POST['class']);
+
+		// Read record
+		$sql = mysqli_query($db,"SELECT * FROM students WHERE dates='$date' AND class='$class'");
+		while($row = mysqli_fetch_assoc($sql)){
+			$names = unserialize($row['names']);
+			$module = $row['module'];	
+			
+			$_SESSION['selected_date'] = $date;
+			$_SESSION['selected_class'] = $class;
+
+			array_push($sorted_names, array($module , $names));
+
+		}
+	
+	}
+
+	if (isset($_POST['module_sort'])) {
+
+		$date = mysqli_real_escape_string($db, $_POST['date']);
+		$module = mysqli_real_escape_string($db, $_POST['module']);
+
+		// Read record
+		$sql = mysqli_query($db,"SELECT * FROM students WHERE dates='$date' AND module='$module'");
+		while($row = mysqli_fetch_assoc($sql)){
+			$names = unserialize($row['names']);
+			$class = $row['class'];	
+			
+			$_SESSION['selected_date'] = $date;
+			$_SESSION['selected_module'] = $module;
+
+			array_push($sorted_names, array($class , $names));
+
+		}
+	
+	}
 
  ?>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
     <div class="header">
@@ -14,7 +14,7 @@
     </div> 
 
     <form method="post" action="reset.php">
-        <?php include('errors.php'); ?>
+        <?php include('includes/errors.php'); ?>
 
         <?php if (isset($_SESSION['reset-email'])): ?>
             <div class="success">

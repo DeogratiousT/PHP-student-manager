@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="css/app.css">
 
 </head>
 <body>
@@ -14,7 +14,7 @@
     </div> 
 
     <form method="post" action="register.php">
-        <?php include('errors.php'); ?>
+        <?php include('includes/errors.php'); ?>
 
         <div class="input-group">
             <label>Username</label>

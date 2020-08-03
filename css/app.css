@@ -186,8 +186,8 @@ li.dropdown {
 .input-group input{
 	height: 30px;
 	width: 93%;
-	padding:5px 10px;
-	font-size: 16px;
+	padding:3px 7px;
+	font-size: 14px;
 	border-radius: 5px;
 	border:1px solid gray;
 }
@@ -195,8 +195,8 @@ li.dropdown {
 .input-group select{
 	height: 40px;
 	width: 98%;
-	padding:5px 10px;
-	font-size: 16px;
+	padding:3px 7px;
+	font-size: 14px;
 	border-radius: 5px;
 	border:1px solid gray;
 }
@@ -244,4 +244,18 @@ li.dropdown {
   cursor: pointer;
   padding: 0.75rem 0.75rem;
   font-size: 1rem;
+}
+
+.pull-left{
+  float: left;
+  text-align: center;
+  line-height: 1.5;
+  vertical-align: middle;
+  cursor: pointer;
+  padding: 0.75rem 0.75rem;
+  font-size: 1rem;
+}
+
+.clearfix{
+  clear: both;
 }
