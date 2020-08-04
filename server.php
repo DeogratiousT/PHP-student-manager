@@ -7,7 +7,12 @@
 	$student_attendance = array();
 
 	//connecting to the database
-	$db = mysqli_connect('localhost','root','Password1234','lecturer');
+	$servername = "localhost";
+	$username = "username";
+	$password = "password";
+	$dbname = "databasename";
+
+	$db = mysqli_connect($servername,$username,$password,$dbname);
 
 	//If the register button is clicked
 	if (isset($_POST['register'])) {
